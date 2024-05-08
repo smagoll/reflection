@@ -3,11 +3,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField]
-    private Transform pointBatting;
-    [SerializeField]
-    private Transform pointEnemy;
-    [SerializeField]
     private CinemachineShake cinemachineShake;
+    [SerializeField]
+    private Ball ball;
+    
+    private float xMove = 0;
+    private float yMove = 0;
+    [SerializeField] private float sensivity;
     
     private void Update()
     {
@@ -15,22 +17,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("click");
 
-            RaycastHit[] hits = Physics.SphereCastAll(transform.position, 2f, Vector3.forward);
-            foreach (var hit in hits)
-            {
-                if (hit.collider.TryGetComponent(out Projectile projectile))
-                {
-                    projectile.SwitchDirection(pointEnemy);
-                    GlobalEventManager.UpdateTextScore?.Invoke();
-                    cinemachineShake.ShakeCamera(1,.2f);
-                }
-            }
+            ball.Throw();
         }
     }
-    
-    void OnDrawGizmos()
+
+    public void SetBall(Ball ball)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(pointBatting.position, 2f);
+        this.ball = ball;
+        ball.Init(transform);
     }
 }

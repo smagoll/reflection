@@ -7,12 +7,12 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Transform spawnpointProjectile;
     [SerializeField]
-    private Projectile prefabProjectile;
+    private Ball prefabBall;
 
     [SerializeField]
     private UIManager uiManager;
     [SerializeField]
-    private YandexGame yandexGame;
+    private PlayerController playerController;
 
     private int score = 0;
 
@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
 
     private void SpawnProjectile()
     {
-        Instantiate(prefabProjectile, spawnpointProjectile.position, Quaternion.identity);
+        var ball = Instantiate(prefabBall, spawnpointProjectile.position, Quaternion.identity);
+        playerController.SetBall(ball);
     }
     
     private void IncreaseScore()
