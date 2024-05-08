@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,5 +11,10 @@ public class UIMenu : MonoBehaviour
     public void ButtonPlay()
     {
         SceneManager.LoadScene("Game");
+    }
+
+    private void Start()
+    {
+        recordText.text = DataManager.instance.HighScore.ToString();
     }
 }

@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour
     private Transform pointBatting;
     [SerializeField]
     private Transform pointEnemy;
+    [SerializeField]
+    private CinemachineShake cinemachineShake;
     
     private void Update()
     {
@@ -13,13 +15,14 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("click");
 
-            RaycastHit[] hits = Physics.SphereCastAll(pointBatting.position, 2f, Vector3.forward);
+            RaycastHit[] hits = Physics.SphereCastAll(transform.position, 2f, Vector3.forward);
             foreach (var hit in hits)
             {
                 if (hit.collider.TryGetComponent(out Projectile projectile))
                 {
                     projectile.SwitchDirection(pointEnemy);
                     GlobalEventManager.UpdateTextScore?.Invoke();
+                    cinemachineShake.ShakeCamera(1,.2f);
                 }
             }
         }

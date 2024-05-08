@@ -12,4 +12,10 @@ public class EnemyPoint : MonoBehaviour
             projectile.SwitchDirection(pointPlayer);
         }
     }
+    
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 2f);
+    }
 }

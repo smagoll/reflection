@@ -990,7 +990,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Record:'
+  m_text: "\u0420\u0435\u043A\u043E\u0440\u0434:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 991e26e87c8977846b350e6049f44f4d, type: 2}
   m_sharedMaterial: {fileID: -8887008963562770009, guid: 991e26e87c8977846b350e6049f44f4d, type: 2}

@@ -14,12 +14,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     private GameManager gameManager;
-
-    private void Start()
-    {
-        textScore.text = DataManager.instance.HighScore.ToString();
-    }
-
+    
     private void ShowWindowGameOver()
     {
         windowGameOver.SetActive(true);
