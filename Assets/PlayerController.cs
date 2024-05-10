@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Serialization;
+using Zenject;
 
 public class PlayerController : MonoBehaviour
 {
@@ -6,18 +8,42 @@ public class PlayerController : MonoBehaviour
     private CinemachineShake cinemachineShake;
     [SerializeField]
     private Ball ball;
+
+    private GameManager gameManager;
     
-    private float xMove = 0;
-    private float yMove = 0;
-    [SerializeField] private float sensivity;
+    [FormerlySerializedAs("distance")] [SerializeField]
+    private float maxDistance = 500f;
+    private bool isTouch;
+    private Vector3 startPosition;
+
+    [Inject]
+    private void Construct(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
     
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        if (ball == null) return;
+        
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("click");
+            Debug.Log("click_down");
 
-            ball.Throw();
+            startPosition = Input.mousePosition;
+            isTouch = true;
+        }
+        
+        if (Input.GetMouseButtonUp(0))
+        {
+            Debug.Log("click_up");
+
+            ResetDrag();
+        }
+
+        if (isTouch)
+        {
+            Drag();
         }
     }
 
@@ -25,5 +51,36 @@ public class PlayerController : MonoBehaviour
     {
         this.ball = ball;
         ball.Init(transform);
+    }
+
+    private void Drag()
+    {
+        var currentMousePosition = Input.mousePosition;
+        var heading = currentMousePosition - startPosition;
+        var distance = heading.magnitude;
+        if (distance > maxDistance)
+        {
+            if (currentMousePosition.y - startPosition.y > 0)
+            {
+                var direction = heading / distance;
+                Debug.Log("throw");
+                Debug.Log(direction);
+                ThrowBall(direction);
+                ResetDrag();
+            }
+        }
+    }
+
+    private void ResetDrag()
+    {
+        startPosition = Vector3.zero;
+        isTouch = false;
+    }
+
+    private void ThrowBall(Vector3 direction)
+    {
+        ball.Throw(direction);
+        ball = null;
+        gameManager.SpawnProjectile();
     }
 }

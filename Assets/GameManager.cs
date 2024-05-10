@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour
         SpawnProjectile();
     }
 
-    private void SpawnProjectile()
+    public void SpawnProjectile()
     {
         var ball = Instantiate(prefabBall, spawnpointProjectile.position, Quaternion.identity);
         playerController.SetBall(ball);
