@@ -1,4 +1,3 @@
-using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -13,6 +12,8 @@ public class Ball : MonoBehaviour
     private float timeToDie = 3f;
     
     private bool isFlight;
+    
+    public bool IsEnterRing { get; set; }
 
     private void Awake()
     {
@@ -30,10 +31,10 @@ public class Ball : MonoBehaviour
         this.playerTransform = playerTransform;
     }
 
-    public void Throw(Vector3 direction, float offsetY)
+    public void Throw(Vector3 direction, float force)
     {
         playerTransform = null;
-        rb.AddRelativeForce(new Vector3(direction.x * 2, direction.y + offsetY, 1) * Time.fixedDeltaTime * speed, ForceMode.Impulse);
+        rb.AddRelativeForce(new Vector3(direction.x * 2, direction.y + 1.7f, 1) * Time.fixedDeltaTime * force, ForceMode.Impulse);
         rb.useGravity = true;
         isFlight = true;
         

@@ -18,9 +18,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float maxDistance = 500f;
     [SerializeField]
-    private float maxOffsetThrowY = 1.7f;
+    private float maxForce;
     [SerializeField]
-    private float minOffsetThrowY = 1f;
+    private float minForce;
     [SerializeField]
     private float minSpeedMouse = 3f;
     [SerializeField]
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private Queue<Vector2> lastMousePositions;
     private float multiply;
 
-    private float RangeOffsetY => maxOffsetThrowY - minOffsetThrowY;
+    private float RangeOffsetY => maxForce - minForce;
     private float RangeSpeedMouse => maxSpeedMouse - minSpeedMouse;
     
     [Inject]
@@ -121,9 +121,9 @@ public class PlayerController : MonoBehaviour
     {
         if (speedMouse < maxSpeedMouse)
         {
-            return minOffsetThrowY + speedMouse * multiply;
+            return minForce + speedMouse * multiply;
         }
         else
-            return maxOffsetThrowY;
+            return maxForce;
     }
 }

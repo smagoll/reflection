@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using YG;
 
@@ -24,8 +25,9 @@ public class GameManager : MonoBehaviour
         SpawnProjectile();
     }
 
-    public void SpawnProjectile()
+    public async void SpawnProjectile()
     {
+        await UniTask.WaitForSeconds(.1f);
         var ball = Instantiate(prefabBall, spawnpointProjectile.position, Quaternion.identity);
         playerController.SetBall(ball);
     }
