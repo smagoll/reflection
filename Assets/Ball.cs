@@ -9,7 +9,9 @@ public class Ball : MonoBehaviour
 
     [SerializeField]
     private float speed;
-
+    [SerializeField]
+    private float timeToDie = 3f;
+    
     private bool isFlight;
 
     private void Awake()
@@ -28,14 +30,14 @@ public class Ball : MonoBehaviour
         this.playerTransform = playerTransform;
     }
 
-    public void Throw(Vector3 direction)
+    public void Throw(Vector3 direction, float offsetY)
     {
         playerTransform = null;
-        rb.AddRelativeForce(new Vector3(direction.x, direction.y + 1.7f, 1) * Time.fixedDeltaTime * speed, ForceMode.Impulse);
+        rb.AddRelativeForce(new Vector3(direction.x * 2, direction.y + offsetY, 1) * Time.fixedDeltaTime * speed, ForceMode.Impulse);
         rb.useGravity = true;
         isFlight = true;
         
-        DestroyBall(5f).Forget();
+        DestroyBall(timeToDie).Forget();
     }
 
     private async UniTask DestroyBall(float timeBeforeDestroy)
