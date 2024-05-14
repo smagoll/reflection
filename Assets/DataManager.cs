@@ -7,6 +7,7 @@ public class DataManager : MonoBehaviour
     public static DataManager instance;
 
     public int HighScore { get; set; }
+    public int Level { get; set; }
     
     private void Awake()
     {
@@ -21,6 +22,7 @@ public class DataManager : MonoBehaviour
     public void Save()
     {
         YandexGame.savesData.highScore = HighScore;
+        YandexGame.savesData.level = Level;
         
         YandexGame.SaveProgress();
     }
@@ -28,6 +30,7 @@ public class DataManager : MonoBehaviour
     private void GetData()
     {
         HighScore = YandexGame.savesData.highScore;
+        Level = YandexGame.savesData.level;
     }
 
     private void OnEnable() => YandexGame.GetDataEvent += GetData;

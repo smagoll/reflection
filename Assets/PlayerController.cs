@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 public class PlayerController : MonoBehaviour
@@ -81,6 +79,7 @@ public class PlayerController : MonoBehaviour
         var currentMousePosition = Input.mousePosition;
         var heading = currentMousePosition - startPosition;
         var distance = heading.magnitude;
+        
         if (distance > maxDistance)
         {
             if (currentMousePosition.y - startPosition.y > 0)
@@ -101,10 +100,12 @@ public class PlayerController : MonoBehaviour
     private void ThrowBall(Vector3 direction)
     {
         var speedMouse = lastMousePositions.Average(x => x.magnitude);
-        var offsetY = GetOffsetY(speedMouse);
-        ball.Throw(direction, offsetY);
+        var force = GetForce(speedMouse);
+        
+        ball.Throw(direction, force);
         ball = null;
-        gameManager.SpawnProjectile();
+        
+        GlobalEventManager.SpawnBall?.Invoke();
     }
 
     private void CalculateSpeedMouse()
@@ -117,7 +118,7 @@ public class PlayerController : MonoBehaviour
         lastMousePosition = Input.mousePosition;
     }
 
-    private float GetOffsetY(float speedMouse)
+    private float GetForce(float speedMouse)
     {
         if (speedMouse < maxSpeedMouse)
         {

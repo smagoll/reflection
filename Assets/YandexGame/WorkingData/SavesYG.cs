@@ -11,6 +11,7 @@ namespace YG
         public bool promptDone;
 
         public int highScore;
+        public int level = 1;
 
 
         // Вы можете выполнить какие то действия при загрузке сохранений

@@ -2,15 +2,14 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI textScore;
+    private TextMeshProUGUI textCountBalls;
     [SerializeField]
     private GameObject windowGameOver;
-    [SerializeField]
-    private TextMeshProUGUI textFinalScore;
 
     [SerializeField]
     private GameManager gameManager;
@@ -18,28 +17,26 @@ public class UIManager : MonoBehaviour
     private void ShowWindowGameOver()
     {
         windowGameOver.SetActive(true);
-        textFinalScore.text = gameManager.Score.ToString();
     }
     private void HideWindowGameOver()
     {
         windowGameOver.SetActive(false);
-        textFinalScore.text = "0";
     }
 
     private void HideUnusualUI()
     {
-        textScore.gameObject.SetActive(false);
-        textScore.text = "0";
+        textCountBalls.gameObject.SetActive(false);
+        textCountBalls.text = "0";
     }
     
     private void ShowUnusualUI()
     {
-        textScore.gameObject.SetActive(true);
+        textCountBalls.gameObject.SetActive(true);
     }
     
-    public void UpdateTextScore(float score)
+    public void UpdateTextCountBalls(int countBalls)
     {
-        textScore.text = score.ToString();
+        textCountBalls.text = countBalls.ToString();
     }
 
     public void RestartButton()

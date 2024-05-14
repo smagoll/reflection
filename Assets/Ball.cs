@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -38,6 +39,7 @@ public class Ball : MonoBehaviour
         rb.useGravity = true;
         isFlight = true;
         
+        GlobalEventManager.DecreaseCountBalls?.Invoke();
         DestroyBall(timeToDie).Forget();
     }
 

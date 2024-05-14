@@ -1,68 +1,32 @@
 using System;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using YG;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private Transform spawnpointProjectile;
-    [SerializeField]
-    private Ball prefabBall;
-
-    [SerializeField]
     private UIManager uiManager;
     [SerializeField]
     private PlayerController playerController;
+    [SerializeField]
+    private BallsSpawner ballsSpawner;
+    [SerializeField]
+    private LevelMaster levelMaster;
 
-    private int score = 0;
-
-    public float Score => score;
-    public float HighScore => DataManager.instance.HighScore;
+    public BallsSpawner BallsSpawner => ballsSpawner;
 
     private void Start()
     {
-        SpawnProjectile();
+        levelMaster.CreateLevel(1);
     }
 
-    public async void SpawnProjectile()
-    {
-        await UniTask.WaitForSeconds(.1f);
-        var ball = Instantiate(prefabBall, spawnpointProjectile.position, Quaternion.identity);
-        playerController.SetBall(ball);
-    }
-    
-    private void IncreaseScore()
-    {
-        score++;
-        uiManager.UpdateTextScore(score);
-    }
-
-    private void SaveLeaderBoard()
-    {
-        if (score > HighScore)
-        {
-            YandexGame.NewLeaderboardScores("Leaders", score);
-            DataManager.instance.HighScore = score;
-            DataManager.instance.Save();
-        }
-    }
-    
     private void OnEnable()
     {
-        GlobalEventManager.UpdateTextScore.AddListener(IncreaseScore);
-        GlobalEventManager.GameOver.AddListener(SaveLeaderBoard);
-        GlobalEventManager.RestartGame.AddListener(SpawnProjectile);
         GlobalEventManager.RestartGame.AddListener(YandexGame.FullscreenShow);
-        GlobalEventManager.RestartGame.AddListener(() => score = 0);
     }
     
     private void OnDisable()
     {
-        GlobalEventManager.UpdateTextScore.RemoveListener(IncreaseScore);
-        GlobalEventManager.GameOver.RemoveListener(SaveLeaderBoard);
-        GlobalEventManager.RestartGame.RemoveListener(SpawnProjectile);
         GlobalEventManager.RestartGame.RemoveListener(YandexGame.FullscreenShow);
-        GlobalEventManager.RestartGame.RemoveListener(() => score = 0);
     }
 }

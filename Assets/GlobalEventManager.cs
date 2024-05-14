@@ -6,5 +6,6 @@ public class GlobalEventManager : MonoBehaviour
     public static UnityEvent GameOver = new();
     public static UnityEvent RestartGame = new();
     
-    public static UnityEvent UpdateTextScore = new();
+    public static UnityEvent DecreaseCountBalls = new();
+    public static UnityEvent SpawnBall = new();
 }
