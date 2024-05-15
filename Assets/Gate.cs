@@ -8,7 +8,7 @@ public class Gate : MonoBehaviour
         if (other.TryGetComponent(out Projectile projectile))
         {
             projectile.Death();
-            GlobalEventManager.GameOver?.Invoke();
+            GlobalEventManager.LoseLevel?.Invoke();
             Debug.Log("game over");
         }
     }

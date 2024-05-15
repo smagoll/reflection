@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Pool;
 using Zenject;
 using Zenject.SpaceFighter;
 
@@ -14,9 +16,13 @@ public class BallsSpawner : MonoBehaviour
     [SerializeField]
     private Transform spawnpointProjectile;
     [SerializeField]
+    private Transform transformBalls;
+    [SerializeField]
     private Ball prefabBall;
+    private ObjectPool<Ball> poolBalls;
 
     private int countBalls;
+    private CancellationTokenSource cancellationTokenSource;
     
     public int CountBalls
     {
@@ -38,12 +44,7 @@ public class BallsSpawner : MonoBehaviour
 
     private void Awake()
     {
-        CountBalls = 1;
-    }
-
-    private void Start()
-    {
-        SpawnProjectile();
+        poolBalls = CreatePool(prefabBall);
     }
 
     private async void SpawnProjectile()
@@ -51,8 +52,10 @@ public class BallsSpawner : MonoBehaviour
         if (countBalls > 0)
         {
             await UniTask.WaitForSeconds(.1f);
-            var ball = Instantiate(prefabBall, spawnpointProjectile.position, Quaternion.identity);
+            var ball = poolBalls.Get();
             playerController.SetBall(ball);
+            ball.Init(poolBalls, spawnpointProjectile, cancellationTokenSource: cancellationTokenSource);
+            if (countBalls == 1) ball.isLast = true;
         }
         else
         {
@@ -64,10 +67,41 @@ public class BallsSpawner : MonoBehaviour
     {
         GlobalEventManager.SpawnBall.AddListener(SpawnProjectile);
         GlobalEventManager.DecreaseCountBalls.AddListener(() => CountBalls--);
+        GlobalEventManager.LevelLoaded.AddListener(SpawnProjectile);
+        GlobalEventManager.LoseLevel.AddListener(ClearBalls);
+        GlobalEventManager.CompleteLevel.AddListener(ClearBalls);
+        GlobalEventManager.StartLevel.AddListener(() => cancellationTokenSource = new CancellationTokenSource());
     }
     private void OnDisable()
     {
         GlobalEventManager.SpawnBall.RemoveListener(SpawnProjectile);
         GlobalEventManager.DecreaseCountBalls.RemoveListener(() => CountBalls--);
+        GlobalEventManager.LevelLoaded.RemoveListener(SpawnProjectile);
+        GlobalEventManager.LoseLevel.RemoveListener(ClearBalls);
+        GlobalEventManager.CompleteLevel.RemoveListener(ClearBalls);
+        GlobalEventManager.StartLevel.RemoveListener(() => cancellationTokenSource = new CancellationTokenSource());
+    }
+
+    private void ClearBalls()
+    {
+        poolBalls.Clear();
+        foreach (Transform ball in transformBalls) Destroy(ball.gameObject);
+        cancellationTokenSource.Cancel();
+    }
+    
+    private ObjectPool<Ball> CreatePool(Ball ball)
+    {
+        ObjectPool<Ball> pool = new(() =>
+        {
+            return Instantiate(ball, transformBalls);
+        }, ball => {
+            ball.gameObject.SetActive(true);
+        }, ball => {
+            ball.gameObject.SetActive(false);
+        }, ball => {
+            Destroy(ball);
+        }, false);
+
+        return pool;
     }
 }

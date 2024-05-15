@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fa86c374869a0b047a4b57cba565e823, type: 3}
       propertyPath: m_Name
-      value: CHAHIN_BASKETBALL
+      value: Ball
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -132,4 +132,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1250
-  timeToDie: 3
+  timeToDie: 5
+  isLast: 0

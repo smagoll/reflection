@@ -13,20 +13,31 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private LevelMaster levelMaster;
 
+    public int testLevel;
+    
     public BallsSpawner BallsSpawner => ballsSpawner;
 
     private void Start()
     {
-        levelMaster.CreateLevel(1);
+        GlobalEventManager.StartLevel?.Invoke();
     }
 
+    public void LoadLevel()
+    {
+        levelMaster.CreateLevel(DataManager.instance.SelectedLevel);
+    }
+    
     private void OnEnable()
     {
-        GlobalEventManager.RestartGame.AddListener(YandexGame.FullscreenShow);
+        GlobalEventManager.LoseLevel.AddListener(YandexGame.FullscreenShow);
+        GlobalEventManager.CompleteLevel.AddListener(YandexGame.FullscreenShow);
+        GlobalEventManager.StartLevel.AddListener(LoadLevel);
     }
     
     private void OnDisable()
     {
-        GlobalEventManager.RestartGame.RemoveListener(YandexGame.FullscreenShow);
+        GlobalEventManager.LoseLevel.RemoveListener(YandexGame.FullscreenShow);
+        GlobalEventManager.CompleteLevel.RemoveListener(YandexGame.FullscreenShow);
+        GlobalEventManager.StartLevel.RemoveListener(LoadLevel);
     }
 }

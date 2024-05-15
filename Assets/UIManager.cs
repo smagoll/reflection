@@ -9,18 +9,20 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI textCountBalls;
     [SerializeField]
-    private GameObject windowGameOver;
+    private GameObject windowLose;
+    [SerializeField]
+    private GameObject windowComplete;
 
     [SerializeField]
     private GameManager gameManager;
     
     private void ShowWindowGameOver()
     {
-        windowGameOver.SetActive(true);
+        windowLose.SetActive(true);
     }
     private void HideWindowGameOver()
     {
-        windowGameOver.SetActive(false);
+        windowLose.SetActive(false);
     }
 
     private void HideUnusualUI()
@@ -41,27 +43,40 @@ public class UIManager : MonoBehaviour
 
     public void RestartButton()
     {
-         GlobalEventManager.RestartGame?.Invoke();
+        ShowUnusualUI();
+        HideWindowGameOver();
+        GlobalEventManager.StartLevel?.Invoke();
     }
 
     public void ExitButton()
     {
         SceneManager.LoadScene("Menu");
     }
-    
+
+    public void NextButton()
+    {
+        ShowUnusualUI();
+        windowComplete.SetActive(false);
+        DataManager.instance.SelectedLevel++;
+        GlobalEventManager.StartLevel?.Invoke();
+    }
+
+    public void AdButton()
+    {
+        
+    }
+
     private void OnEnable()
     {
-        GlobalEventManager.GameOver.AddListener(ShowWindowGameOver);
-        GlobalEventManager.GameOver.AddListener(HideUnusualUI);
-        GlobalEventManager.RestartGame.AddListener(ShowUnusualUI);
-        GlobalEventManager.RestartGame.AddListener(HideWindowGameOver);
+        GlobalEventManager.LoseLevel.AddListener(ShowWindowGameOver);
+        GlobalEventManager.LoseLevel.AddListener(HideUnusualUI);
+        GlobalEventManager.CompleteLevel.AddListener(() => windowComplete.SetActive(true));
     }
     
     private void OnDisable()
     {
-        GlobalEventManager.GameOver.RemoveListener(ShowWindowGameOver);
-        GlobalEventManager.GameOver.RemoveListener(HideUnusualUI);
-        GlobalEventManager.RestartGame.RemoveListener(ShowUnusualUI);
-        GlobalEventManager.RestartGame.RemoveListener(HideWindowGameOver);
+        GlobalEventManager.LoseLevel.RemoveListener(ShowWindowGameOver);
+        GlobalEventManager.LoseLevel.RemoveListener(HideUnusualUI);
+        GlobalEventManager.CompleteLevel.RemoveListener(() => windowComplete.SetActive(true));
     }
 }

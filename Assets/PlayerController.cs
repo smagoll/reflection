@@ -14,8 +14,6 @@ public class PlayerController : MonoBehaviour
     
     [Header("Throw Options")]
     [SerializeField]
-    private float maxDistance = 500f;
-    [SerializeField]
     private float maxForce;
     [SerializeField]
     private float minForce;
@@ -32,6 +30,7 @@ public class PlayerController : MonoBehaviour
 
     private float RangeOffsetY => maxForce - minForce;
     private float RangeSpeedMouse => maxSpeedMouse - minSpeedMouse;
+    private float MaxDistance => Screen.height / 3;
     
     [Inject]
     private void Construct(GameManager gameManager)
@@ -70,7 +69,6 @@ public class PlayerController : MonoBehaviour
     public void SetBall(Ball ball)
     {
         this.ball = ball;
-        ball.Init(transform);
     }
 
     private void Drag()
@@ -80,7 +78,7 @@ public class PlayerController : MonoBehaviour
         var heading = currentMousePosition - startPosition;
         var distance = heading.magnitude;
         
-        if (distance > maxDistance)
+        if (distance > MaxDistance)
         {
             if (currentMousePosition.y - startPosition.y > 0)
             {
@@ -106,6 +104,7 @@ public class PlayerController : MonoBehaviour
         ball = null;
         
         GlobalEventManager.SpawnBall?.Invoke();
+        AudioController.instance.PlaySFX(AudioController.instance._throw);
     }
 
     private void CalculateSpeedMouse()

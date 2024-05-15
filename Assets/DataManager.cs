@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using YG;
 
@@ -8,6 +7,7 @@ public class DataManager : MonoBehaviour
 
     public int HighScore { get; set; }
     public int Level { get; set; }
+    public int SelectedLevel { get; set; }
     
     private void Awake()
     {

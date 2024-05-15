@@ -1,10 +1,11 @@
 using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class Ball : MonoBehaviour
 {
-    private Transform playerTransform;
     private Rigidbody rb;
 
     [SerializeField]
@@ -13,6 +14,9 @@ public class Ball : MonoBehaviour
     private float timeToDie = 3f;
     
     private bool isFlight;
+    public bool isLast;
+    private ObjectPool<Ball> pool;
+    private CancellationTokenSource cancellationTokenSource;
     
     public bool IsEnterRing { get; set; }
 
@@ -23,29 +27,46 @@ public class Ball : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerTransform != null) transform.rotation = Quaternion.Slerp(transform.rotation, playerTransform.rotation, 0.5f);
         if(isFlight) rb.AddForce(new Vector3(0,-50,0));
     }
 
-    public void Init(Transform playerTransform)
+    public void Init(ObjectPool<Ball> pool, Transform spawnpoint, CancellationTokenSource cancellationTokenSource)
     {
-        this.playerTransform = playerTransform;
+        this.pool = pool;
+        transform.position = spawnpoint.position;
+        this.cancellationTokenSource = cancellationTokenSource;
     }
 
     public void Throw(Vector3 direction, float force)
     {
-        playerTransform = null;
         rb.AddRelativeForce(new Vector3(direction.x * 2, direction.y + 1.7f, 1) * Time.fixedDeltaTime * force, ForceMode.Impulse);
         rb.useGravity = true;
         isFlight = true;
         
         GlobalEventManager.DecreaseCountBalls?.Invoke();
-        DestroyBall(timeToDie).Forget();
+        DestroyBallDelay(timeToDie, cancellationTokenSource.Token).Forget();
     }
 
-    private async UniTask DestroyBall(float timeBeforeDestroy)
+    private async UniTask DestroyBallDelay(float timeBeforeDestroy, CancellationToken cancellationToken)
     {
-        await UniTask.WaitForSeconds(timeBeforeDestroy);
-        Destroy(gameObject);
+        await UniTask.WaitForSeconds(timeBeforeDestroy, cancellationToken: cancellationToken);
+        if(cancellationToken.IsCancellationRequested) return;
+        DestroyBall();
+    }
+
+    private void DestroyBall()
+    {
+        rb.useGravity = false;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        isFlight = false;
+        pool.Release(this);
+        if(isLast) GlobalEventManager.LoseLevel?.Invoke();
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        AudioController.instance.PlaySFX(AudioController.instance._rebound);
     }
 }

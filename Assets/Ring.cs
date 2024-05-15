@@ -11,6 +11,8 @@ public class Ring : MonoBehaviour
         {
             isDone = true;
             Debug.Log("hit");
+            GlobalEventManager.CheckLevelComplete?.Invoke();
+            AudioController.instance.PlaySFX(AudioController.instance._hit);
         }
     }
 }
