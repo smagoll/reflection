@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Level : MonoBehaviour
@@ -18,7 +19,7 @@ public class Level : MonoBehaviour
 
     public void Unlock()
     {
-        if (id == DataManager.instance.Level)
+        if (id == DataManager.instance.Level && id < DataManager.instance.levelsAsset.LevelInfos.Length)
         {
             DataManager.instance.Level++;
             DataManager.instance.Save();

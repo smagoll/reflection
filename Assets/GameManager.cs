@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadLevel()
     {
-        levelMaster.CreateLevel(DataManager.instance.SelectedLevel);
+        //levelMaster.CreateLevel(DataManager.instance.SelectedLevel);
+        levelMaster.CreateLevel(testLevel);
     }
     
     private void OnEnable()

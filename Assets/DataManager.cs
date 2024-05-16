@@ -5,6 +5,8 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager instance;
 
+    public LevelsAsset levelsAsset;
+
     public int HighScore { get; set; }
     public int Level { get; set; }
     public int SelectedLevel { get; set; }
