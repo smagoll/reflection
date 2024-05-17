@@ -8,6 +8,6 @@ public class Fan : MonoBehaviour
     
     private void Start()
     {
-        transform.DORotate(rotation, 2f).SetLoops(-1).SetRelative().SetEase(Ease.Linear);
+        transform.DORotate(rotation, 2f).SetLoops(-1).SetRelative(true).SetEase(Ease.Linear);
     }
 }

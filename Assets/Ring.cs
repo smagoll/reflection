@@ -4,6 +4,9 @@ public class Ring : MonoBehaviour
 {
     private bool isDone;
     public bool IsDone => isDone;
+
+    [SerializeField]
+    private Material ringCompleted;
     
     public void Hit()
     {
@@ -11,6 +14,7 @@ public class Ring : MonoBehaviour
         {
             isDone = true;
             Debug.Log("hit");
+            gameObject.GetComponent<MeshRenderer>().material = ringCompleted;
             GlobalEventManager.CheckLevelComplete?.Invoke();
             AudioController.instance.PlaySFX(AudioController.instance._hit);
         }

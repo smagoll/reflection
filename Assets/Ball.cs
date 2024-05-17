@@ -61,9 +61,9 @@ public class Ball : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         transform.rotation = Quaternion.identity;
         isFlight = false;
+        if(isLast) GlobalEventManager.LoseLevel?.Invoke();
         isLast = false;
         pool.Release(this);
-        if(isLast) GlobalEventManager.LoseLevel?.Invoke();
     }
 
     private void OnCollisionEnter(Collision other)

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9011529045804715092}
   - component: {fileID: 8182235379690157515}
   - component: {fileID: 3952262552308065431}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: bottomCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 8869817710539154750}
   - component: {fileID: 1471625393238023006}
   - component: {fileID: 7539243351466098657}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: topCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -209,13 +209,29 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5373643390023111395, guid: 02502aca3403bfd468c72be7aa154ef4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 02502aca3403bfd468c72be7aa154ef4, type: 3}
       propertyPath: m_Name
       value: ring
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 02502aca3403bfd468c72be7aa154ef4, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1546444716725461041, guid: 02502aca3403bfd468c72be7aa154ef4, type: 3}
       propertyPath: m_CastShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1546444716725461041, guid: 02502aca3403bfd468c72be7aa154ef4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ca719aa79cbface4ea727125dfa5253f, type: 2}
+    - target: {fileID: 3350606693808230577, guid: 02502aca3403bfd468c72be7aa154ef4, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -252,6 +268,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 405a9163cee8deb4abd7964322500955, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ringCompleted: {fileID: 2100000, guid: b759a212a10055644b449cbbf7a531de, type: 2}
 --- !u!4 &697715560450789897 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 02502aca3403bfd468c72be7aa154ef4, type: 3}
