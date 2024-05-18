@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     private LevelMaster levelMaster;
 
     public int testLevel;
+    public bool isPause;
     
     public BallsSpawner BallsSpawner => ballsSpawner;
 
@@ -26,19 +27,26 @@ public class GameManager : MonoBehaviour
     {
         //levelMaster.CreateLevel(DataManager.instance.SelectedLevel);
         levelMaster.CreateLevel(testLevel);
+        isPause = false;
+    }
+
+    private void Pause()
+    {
+        YandexGame.FullscreenShow();
+        isPause = true;
     }
     
     private void OnEnable()
     {
-        GlobalEventManager.LoseLevel.AddListener(YandexGame.FullscreenShow);
-        GlobalEventManager.CompleteLevel.AddListener(YandexGame.FullscreenShow);
+        GlobalEventManager.LoseLevel.AddListener(Pause);
+        GlobalEventManager.CompleteLevel.AddListener(Pause);
         GlobalEventManager.StartLevel.AddListener(LoadLevel);
     }
     
     private void OnDisable()
     {
-        GlobalEventManager.LoseLevel.RemoveListener(YandexGame.FullscreenShow);
-        GlobalEventManager.CompleteLevel.RemoveListener(YandexGame.FullscreenShow);
+        GlobalEventManager.LoseLevel.RemoveListener(Pause);
+        GlobalEventManager.CompleteLevel.RemoveListener(Pause);
         GlobalEventManager.StartLevel.RemoveListener(LoadLevel);
     }
 }

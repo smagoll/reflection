@@ -1371,72 +1371,6 @@ MonoBehaviour:
   ease: 24
   distance: 100
   delay: 0.05
---- !u!1001 &608748757
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1043917115}
-    m_Modifications:
-    - target: {fileID: 1582892013169134432, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1582892013169134432, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1582892013169134432, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1582892013169134432, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1582892013169134432, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1582892013169134432, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1582892013169134432, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1582892013169134432, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1582892013169134432, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1582892013169134432, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5970373934242638194, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_Name
-      value: Level20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8858853105122294821, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
---- !u!4 &608748758 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1582892013169134432, guid: ac8514dd3ecf4884e8c79e5e78a4b776, type: 3}
-  m_PrefabInstance: {fileID: 608748757}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &673269512
 GameObject:
   m_ObjectHideFlags: 0
@@ -2456,7 +2390,6 @@ Transform:
   m_Children:
   - {fileID: 1375542657}
   - {fileID: 1224362693}
-  - {fileID: 608748758}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1057048166
@@ -2509,7 +2442,7 @@ MonoBehaviour:
   playerController: {fileID: 1375542658}
   ballsSpawner: {fileID: 1057048171}
   levelMaster: {fileID: 928112451}
-  testLevel: 20
+  testLevel: 1
 --- !u!114 &1057048170
 MonoBehaviour:
   m_ObjectHideFlags: 0

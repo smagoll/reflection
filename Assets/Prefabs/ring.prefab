@@ -269,9 +269,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ringCompleted: {fileID: 2100000, guid: b759a212a10055644b449cbbf7a531de, type: 2}
+  ring: {fileID: 1968744429625841107}
 --- !u!4 &697715560450789897 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 02502aca3403bfd468c72be7aa154ef4, type: 3}
+  m_PrefabInstance: {fileID: 1019064650367759842}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &1968744429625841107 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 1546444716725461041, guid: 02502aca3403bfd468c72be7aa154ef4, type: 3}
   m_PrefabInstance: {fileID: 1019064650367759842}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2331684759567050067 stripped

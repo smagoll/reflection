@@ -68,25 +68,29 @@ public class BallsSpawner : MonoBehaviour
         GlobalEventManager.SpawnBall.AddListener(SpawnProjectile);
         GlobalEventManager.DecreaseCountBalls.AddListener(() => CountBalls--);
         GlobalEventManager.LevelLoaded.AddListener(SpawnProjectile);
-        GlobalEventManager.LoseLevel.AddListener(ClearBalls);
-        GlobalEventManager.CompleteLevel.AddListener(ClearBalls);
-        GlobalEventManager.StartLevel.AddListener(() => cancellationTokenSource = new CancellationTokenSource());
+        //GlobalEventManager.LoseLevel.AddListener(ClearBalls);
+        //GlobalEventManager.CompleteLevel.AddListener(ClearBalls);
+        GlobalEventManager.StartLevel.AddListener(ClearBalls);
     }
     private void OnDisable()
     {
         GlobalEventManager.SpawnBall.RemoveListener(SpawnProjectile);
         GlobalEventManager.DecreaseCountBalls.RemoveListener(() => CountBalls--);
         GlobalEventManager.LevelLoaded.RemoveListener(SpawnProjectile);
-        GlobalEventManager.LoseLevel.RemoveListener(ClearBalls);
-        GlobalEventManager.CompleteLevel.RemoveListener(ClearBalls);
-        GlobalEventManager.StartLevel.RemoveListener(() => cancellationTokenSource = new CancellationTokenSource());
+        //GlobalEventManager.LoseLevel.RemoveListener(ClearBalls);
+        //GlobalEventManager.CompleteLevel.RemoveListener(ClearBalls);
+        GlobalEventManager.StartLevel.RemoveListener(ClearBalls);
     }
 
     private void ClearBalls()
     {
-        poolBalls.Clear();
-        foreach (Transform ball in transformBalls) Destroy(ball.gameObject);
-        cancellationTokenSource.Cancel();
+        cancellationTokenSource?.Cancel();
+        cancellationTokenSource?.Dispose();
+        
+        var balls = transformBalls.GetComponentsInChildren<Ball>();
+        foreach (var ball in balls) poolBalls.Release(ball);
+
+        cancellationTokenSource = new CancellationTokenSource();
     }
     
     private ObjectPool<Ball> CreatePool(Ball ball)
@@ -97,7 +101,7 @@ public class BallsSpawner : MonoBehaviour
         }, ball => {
             ball.gameObject.SetActive(true);
         }, ball => {
-            ball.gameObject.SetActive(false);
+            ball.ResetStats();
         }, ball => {
             Destroy(ball);
         }, false);

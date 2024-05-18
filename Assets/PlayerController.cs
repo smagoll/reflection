@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (ball == null) return;
+        if (ball == null || gameManager.isPause) return;
         
         if (Input.GetMouseButtonDown(0))
         {
