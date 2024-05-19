@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Pool;
 using Zenject;
-using Zenject.SpaceFighter;
 
 public class BallsSpawner : MonoBehaviour
 {
@@ -68,24 +64,26 @@ public class BallsSpawner : MonoBehaviour
         GlobalEventManager.SpawnBall.AddListener(SpawnProjectile);
         GlobalEventManager.DecreaseCountBalls.AddListener(() => CountBalls--);
         GlobalEventManager.LevelLoaded.AddListener(SpawnProjectile);
-        //GlobalEventManager.LoseLevel.AddListener(ClearBalls);
-        //GlobalEventManager.CompleteLevel.AddListener(ClearBalls);
         GlobalEventManager.StartLevel.AddListener(ClearBalls);
+        GlobalEventManager.BuyNewBalls.AddListener(BuyAdditionalBalls);
+        GlobalEventManager.CompleteLevel.AddListener(() => cancellationTokenSource?.Cancel());
+        GlobalEventManager.LoseLevel.AddListener(() => cancellationTokenSource?.Cancel());
     }
     private void OnDisable()
     {
         GlobalEventManager.SpawnBall.RemoveListener(SpawnProjectile);
         GlobalEventManager.DecreaseCountBalls.RemoveListener(() => CountBalls--);
         GlobalEventManager.LevelLoaded.RemoveListener(SpawnProjectile);
-        //GlobalEventManager.LoseLevel.RemoveListener(ClearBalls);
-        //GlobalEventManager.CompleteLevel.RemoveListener(ClearBalls);
         GlobalEventManager.StartLevel.RemoveListener(ClearBalls);
+        GlobalEventManager.BuyNewBalls.RemoveListener(BuyAdditionalBalls);
+        GlobalEventManager.CompleteLevel.RemoveListener(() => cancellationTokenSource?.Cancel());
+        GlobalEventManager.LoseLevel.RemoveListener(() => cancellationTokenSource?.Cancel());
     }
 
     private void ClearBalls()
     {
-        cancellationTokenSource?.Cancel();
-        cancellationTokenSource?.Dispose();
+        //cancellationTokenSource?.Cancel();
+        //cancellationTokenSource?.Dispose();
         
         var balls = transformBalls.GetComponentsInChildren<Ball>();
         foreach (var ball in balls) poolBalls.Release(ball);
@@ -107,5 +105,12 @@ public class BallsSpawner : MonoBehaviour
         }, false);
 
         return pool;
+    }
+
+    private void BuyAdditionalBalls()
+    {
+        ClearBalls();
+        CountBalls = 3;
+        SpawnProjectile();
     }
 }

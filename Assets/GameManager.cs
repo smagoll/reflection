@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
         GlobalEventManager.LoseLevel.AddListener(Pause);
         GlobalEventManager.CompleteLevel.AddListener(Pause);
         GlobalEventManager.StartLevel.AddListener(LoadLevel);
+        GlobalEventManager.BuyNewBalls.AddListener(() => isPause = false);
     }
     
     private void OnDisable()
@@ -48,5 +49,6 @@ public class GameManager : MonoBehaviour
         GlobalEventManager.LoseLevel.RemoveListener(Pause);
         GlobalEventManager.CompleteLevel.RemoveListener(Pause);
         GlobalEventManager.StartLevel.RemoveListener(LoadLevel);
+        GlobalEventManager.BuyNewBalls.RemoveListener(() => isPause = false);
     }
 }

@@ -12,4 +12,5 @@ public class GlobalEventManager : MonoBehaviour
     public static UnityEvent DecreaseCountBalls = new();
     public static UnityEvent SpawnBall = new();
     public static UnityEvent CheckLevelComplete = new();
+    public static UnityEvent BuyNewBalls = new();
 }

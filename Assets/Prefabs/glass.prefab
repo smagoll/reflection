@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5600968789359265492}
   - component: {fileID: 2947327335389132178}
   - component: {fileID: 4116128884465090445}
+  - component: {fileID: 1362281328760516005}
   m_Layer: 0
   m_Name: glass
   m_TagString: Untagged
@@ -105,3 +106,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1362281328760516005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216490065230553700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03e28f639a2257a469e26c8977bd6e5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vfxHit: {fileID: 1449242181322416601, guid: 052d5f6cf7d3ebc44bba49fbe653f9a8, type: 3}

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
+using YG;
 
 public class UIManager : MonoBehaviour
 {
@@ -63,7 +64,19 @@ public class UIManager : MonoBehaviour
 
     public void AdButton()
     {
-        
+        YandexGame.RewVideoShow(1);
+    }
+
+    private void Rewarded(int id)
+    {
+        switch (id)
+        {
+            case 1:
+                ShowUnusualUI();
+                HideWindowGameOver();
+                GlobalEventManager.BuyNewBalls?.Invoke();
+                break;
+        }
     }
 
     private void OnEnable()
@@ -71,6 +84,7 @@ public class UIManager : MonoBehaviour
         GlobalEventManager.LoseLevel.AddListener(ShowWindowGameOver);
         GlobalEventManager.LoseLevel.AddListener(HideUnusualUI);
         GlobalEventManager.CompleteLevel.AddListener(() => windowComplete.SetActive(true));
+        YandexGame.RewardVideoEvent += Rewarded;
     }
     
     private void OnDisable()
@@ -78,5 +92,6 @@ public class UIManager : MonoBehaviour
         GlobalEventManager.LoseLevel.RemoveListener(ShowWindowGameOver);
         GlobalEventManager.LoseLevel.RemoveListener(HideUnusualUI);
         GlobalEventManager.CompleteLevel.RemoveListener(() => windowComplete.SetActive(true));
+        YandexGame.RewardVideoEvent -= Rewarded;
     }
 }

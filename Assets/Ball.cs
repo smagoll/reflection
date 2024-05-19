@@ -8,6 +8,7 @@ public class Ball : MonoBehaviour
 {
     private Rigidbody rb;
     private SphereCollider sphereCollider;
+    private TrailRenderer trailRenderer;
 
     [SerializeField]
     private float speed;
@@ -25,6 +26,7 @@ public class Ball : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         sphereCollider = GetComponent<SphereCollider>();
+        trailRenderer = GetComponent<TrailRenderer>();
     }
 
     private void Start()
@@ -58,7 +60,7 @@ public class Ball : MonoBehaviour
     private async UniTask DestroyBallDelay(float timeBeforeDestroy, CancellationToken cancellationToken)
     {
         await UniTask.WaitForSeconds(timeBeforeDestroy, cancellationToken: cancellationToken);
-
+        
         if (isLast) GlobalEventManager.LoseLevel?.Invoke();
         pool.Release(this);
     }
@@ -78,6 +80,7 @@ public class Ball : MonoBehaviour
         sphereCollider.enabled = false;
         isLast = false;
         IsEnterRing = false;
+        trailRenderer.Clear();
         gameObject.SetActive(false);
     }
 }
