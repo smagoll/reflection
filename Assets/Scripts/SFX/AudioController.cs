@@ -23,6 +23,8 @@ public class AudioController : MonoBehaviour
     public AudioClip buttonClick;
     public AudioClip buttonEnter;
 
+    public AudioSource Music => music;
+
     private void Awake()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("music");

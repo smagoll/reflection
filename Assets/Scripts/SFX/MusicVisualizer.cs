@@ -1,9 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Scripting;
 
+[Preserve]
 public class MusicVisualizer : MonoBehaviour
 {
     public static MusicVisualizer instance;
@@ -17,6 +16,7 @@ public class MusicVisualizer : MonoBehaviour
     {
         if (instance == null) instance = this;
 
+        music = GameObject.FindGameObjectWithTag("music").GetComponent<AudioController>().Music;
         spectrumWidth = new float[64];
     }
 

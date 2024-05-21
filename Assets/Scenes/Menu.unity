@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: e0ea78722f7cb4451b99519c67bf1608, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 53dad945199750549a278b5cb219b07f, type: 2}
+  m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -310,22 +310,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4314428697769735900, guid: a8c71b6de280f0d4a82e1c18c820dc88, type: 3}
-      propertyPath: _rebound
-      value: 
-      objectReference: {fileID: 8300000, guid: d78a6f9dfb183dc4dba91b924451e0c5, type: 3}
-    - target: {fileID: 4314428697769735900, guid: a8c71b6de280f0d4a82e1c18c820dc88, type: 3}
-      propertyPath: buttonClick
-      value: 
-      objectReference: {fileID: 8300000, guid: 7756f83c4f336b745be9eb759d7c81f1, type: 3}
-    - target: {fileID: 4314428697769735900, guid: a8c71b6de280f0d4a82e1c18c820dc88, type: 3}
-      propertyPath: buttonEnter
-      value: 
-      objectReference: {fileID: 8300000, guid: dc52f8530187e6346885a9a769ad38c1, type: 3}
-    - target: {fileID: 4314428697769735900, guid: a8c71b6de280f0d4a82e1c18c820dc88, type: 3}
-      propertyPath: _glassHitThumb
-      value: 
-      objectReference: {fileID: 8300000, guid: 83803094471d39b4a8c041ee0bd0bfdd, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

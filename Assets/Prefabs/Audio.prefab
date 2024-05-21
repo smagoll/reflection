@@ -137,7 +137,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4304810829498720293}
-  - component: {fileID: 8414234832604936584}
   - component: {fileID: 4314428697769735900}
   m_Layer: 0
   m_Name: Audio
@@ -163,20 +162,6 @@ Transform:
   - {fileID: 5522207758092965768}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8414234832604936584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4039201764426536824}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 353fac1208f0d9b4c88678449141ebe6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spectrumWidth: []
-  music: {fileID: 8596187037806990498}
 --- !u!114 &4314428697769735900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,9 +180,11 @@ MonoBehaviour:
   _throw: {fileID: 8300000, guid: 7be57666544013e45bc16eeba8de67b7, type: 3}
   _rebound: {fileID: 8300000, guid: d78a6f9dfb183dc4dba91b924451e0c5, type: 3}
   _hit: {fileID: 8300000, guid: bd485532692393f4c95df5d7daa35b12, type: 3}
-  _glassHitThumb: {fileID: 8300000, guid: ca0ad0be153935340bf651cb426843df, type: 3}
+  _glassHitThumb: {fileID: 8300000, guid: 83803094471d39b4a8c041ee0bd0bfdd, type: 3}
   _levelComplete: {fileID: 8300000, guid: 1f2180376218c85488d7110f44e1a2b7, type: 3}
   _levelLose: {fileID: 8300000, guid: 67e3370156ce80b49947ef9afe5dabd1, type: 3}
+  buttonClick: {fileID: 8300000, guid: 7756f83c4f336b745be9eb759d7c81f1, type: 3}
+  buttonEnter: {fileID: 8300000, guid: dc52f8530187e6346885a9a769ad38c1, type: 3}
 --- !u!1 &4386466398707040913
 GameObject:
   m_ObjectHideFlags: 0

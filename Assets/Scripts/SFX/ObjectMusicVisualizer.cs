@@ -1,5 +1,8 @@
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Scripting;
 
+[Preserve]
 public class ObjectMusicVisualizer : MonoBehaviour
 {
     enum TypeMusicVisualizer
@@ -22,7 +25,9 @@ public class ObjectMusicVisualizer : MonoBehaviour
 
     private float currentBuffer;
     private float bufferDecrease;
-    
+
+    private AudioSource audioSource;
+
     private void FixedUpdate()
     {
         Shake();
@@ -57,7 +62,7 @@ public class ObjectMusicVisualizer : MonoBehaviour
         }
 
         var frequencyRange = MusicVisualizer.instance.GetFrequencyRange(start, end, mult);
-
+        
         CalculateBuffer(frequencyRange);
         
         transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(currentBuffer, currentBuffer, currentBuffer), force);
