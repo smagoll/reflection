@@ -23,7 +23,6 @@ public class DataManager : MonoBehaviour
 
     public void Save()
     {
-        YandexGame.savesData.highScore = HighScore;
         YandexGame.savesData.level = Level;
         
         YandexGame.SaveProgress();
@@ -31,7 +30,6 @@ public class DataManager : MonoBehaviour
     
     private void GetData()
     {
-        HighScore = YandexGame.savesData.highScore;
         Level = YandexGame.savesData.level;
     }
 
