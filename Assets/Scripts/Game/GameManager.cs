@@ -28,11 +28,11 @@ public class GameManager : MonoBehaviour
         levelMaster.CreateLevel(DataManager.instance.SelectedLevel);
         //levelMaster.CreateLevel(testLevel);
         isPause = false;
+        YandexGame.FullscreenShow();
     }
 
     private void Pause()
     {
-        YandexGame.FullscreenShow();
         isPause = true;
     }
     

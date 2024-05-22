@@ -1,4 +1,5 @@
 using UnityEngine;
+using YG;
 
 public class AudioController : MonoBehaviour
 {
@@ -46,12 +47,6 @@ public class AudioController : MonoBehaviour
     public void PlaySFXSmall(AudioClip audioClip)
     {
         sfxSmall.PlayOneShot(audioClip);
-    }
-
-    public void PlayMusic(AudioClip audioClip)
-    {
-        music.clip = audioClip;
-        music.Play();
     }
 
     private void OnEnable()
